@@ -62,6 +62,8 @@ class Calendar
 	
 	getJQuery()
 	{
+		var divRoot = $("<div></div>");
+		
 		var divNavRow = 
 			$("<div></div>",	{	"css":	{	"display":			"flex"
 											,	"flex-direction":	"row"
@@ -90,8 +92,8 @@ class Calendar
 		var scrollMonth = 
 			$("<span></span>",	{	"css":	{	"display":				"flex"
 											,	"flex-direction":		"column"
-											,	"margin-right": 		"-25em"
-											,	"margin-top":			"-25em"
+											,	"margin-right": 		"-.25em"
+											,	"margin-top":			"-.25em"
 											}})
 				.append(
 					$("<span></span>",	{	"css":	{	"cursor":			"pointer"
@@ -114,12 +116,103 @@ class Calendar
 							{
 								alert("Move down");
 							}));
+							
+	var spanCurrentYear =
+		$("<span></span>",	{	css:	{	cursor:			"pointer"
+										,	"font-weight":	"bold"
+										}})
+			.html(this.getYear());
+			
+		var scrollYear = 
+			$("<span></span>",	{	"css":	{	"display":				"flex"
+											,	"flex-direction":		"column"
+											,	"margin-right": 		"-.25em"
+											,	"margin-top":			"-.25em"
+											}})
+				.append(
+					$("<span></span>",	{	"css":	{	"cursor":			"pointer"
+													,	"height":			"auto"
+													,	"margin-bottom":	"-5px"
+													,	"scale":			"50%"}})
+						.html("▲")
+						.click(function()
+						{
+							alert("Move Up");
+						}))
+					.append(
+						$("<span></span>",	{	"css":	{	"cursor":		"pointer"
+														,	"height":		"auto"
+														,	"margin-top":	"-5px"
+														,	"scale":		"50%"
+														}})
+							.html("▼")
+							.click(function()
+							{
+								alert("Move down");
+							}));
+							
+	var divNextMonth = 
+		$("<div></div>",	{	"css":	{	"cursor":			"pointer"
+										,	"font-weight":		"bold"	
+										,	"margin-left":		"2em"
+										,	"text-decoration":	"underline"
+										,	"vertical-align":	"middle"
+										}})
+			.html("&gt;&gt;")
+			.click(function()
+			{
+				alert("Move forward!");
+			});
+			
+	divRoot
+		.append(
+			divNavRow
+				.append(divPrevMonth)
+				.append(spanCurrentMonth)
+				.append(scrollMonth)
+				.append(", &nbsp;")
+				.append(spanCurrentYear)
+				.append(scrollYear)
+				.append(divNextMonth));
+			
+	var divDays = 
+		$("<div></div>",	{	css:	{	display:			"flex"
+										,	"flex-direction":	"row"
+										}});
+										
+	var arrDays = Array("Su", "M", "Tu", "W", "Th", "F", "Sa");
+										
+	for(var sDay in arrDays)
+		divDays.append(
+			$("<span></span>",	{	css:	{	"font-weight":		"bold"
+											,	"margin-left":		".5em"
+											,	"margin-right":		"1.5em"
+											,	"text-decoration":	"underline"
+											}})
+				.html(arrDays[sDay]));
+				
+	divRoot.append(divDays);
 	
-	var jqReturn = 
-		divNavRow
-			.append(divPrevMonth)
-			.append(spanCurrentMonth)
-			.append(scrollMonth);
+	var divCalendar = 
+		$("<div></div>",	{	css:	{	display: 					"grid"
+										,	"grid-template-columns": 	"2.25em 2.275em 2.375em 2.5em 2.5em 2.5em 2.5em"
+										,	"grid-template-rows": 		"5"
+										,	"text-align": 				"center"
+										}});
+										
+	for(var iLength = this.getFirstWeekdayOfMonthAndYear(this.getMonth(), this.getYear()), iLoop = 0; iLoop < iLength; iLoop++)
+		divCalendar
+			.append(
+				$("<span></span>")
+					.html("&nbsp;"));
+					
+	for(var iLength = this.getMaxDaysInMonth(), iLoop = 1; iLoop < iLength; iLoop++)
+		divCalendar
+			.append(
+				$("<span></span>")
+					.html(iLoop));
+		
+	var jqReturn = divRoot;
 						
 		return(jqReturn);
 	}
