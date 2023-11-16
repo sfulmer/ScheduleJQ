@@ -1,0 +1,28 @@
+#container
+{
+	height: 150px;
+	width: 100%;
+}
+
+.dayName
+{
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+div table tbody tr td
+{
+	cursor: pointer;
+	font-weight: bold;
+	text-align: center;
+}
+
+#leftPanel
+{
+	width: 150px;
+}
+
+th img
+{
+	vertical-align: middle;
+}}

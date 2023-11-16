@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>Schedule for Seth Fulmer November, 2023</title>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="styles/index.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+	<script src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+	<script src="js/Calendar.js"></script>
+	<script>
+		$(function() 
+		{
+		   	var horizontalSplitter = $("#container").shieldSplitter();
+		    
+		    var objCalendar = new Calendar();
+		    
+		    alert(objCalendar);
+		    
+		    $("#leftPanel").append(objCalendar.getJQuery());
+		});
+	</script>
+	</head>
+	<body>
+		<div id="container">
+		    <div id="leftPanel">
+				
+			</div>
+		    <div id="rightPanel"></div>
+		</div>
+	</body>
+</html>
