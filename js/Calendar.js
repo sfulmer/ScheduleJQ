@@ -65,26 +65,29 @@ class Calendar
 		var divNavRow = 
 			$("<div></div>",	{	"css":	{	"display":			"flex"
 											,	"flex-direction":	"row"
+											}});
+											
+		var divPrevMonth = 
+				$("<div></div>",	{	"css":	{	"cursor":			"pointer"
+												,	"font-weight":		"bold"	
+												,	"margin-right":		"2em"
+												,	"text-decoration":	"underline"
+												,	"vertical-align":	"middle"
+												}})
+					.html("&lt;&lt;")
+					.click(function()
+					{
+						alert("Move back!");
+					});
+					
+		var spanCurrentMonth =
+			$("<span></span>",	{	"css":	{	"cursor":			"pointer"
+											,	"font-weight":		"bold"
+											,	"text-decoration":	"underline"
 											}})
-				.append(
-					$("<div></div>",	{	"css":	{	"cursor":			"pointer"
-													,	"font-weight":		"bold"	
-													,	"margin-right":		"2em"
-													,	"text-decoration":	"underline"
-													,	"vertical-align":	"middle"
-													}})
-						.html("&lt;&lt;")
-						.click(function()
-						{
-							alert("Move back!");
-						}))
-				.append(
-					$("<span></span>",	{	"css":	{	"cursor":			"pointer"
-													,	"font-weight":		"bold"
-													,	"text-decoration":	"underline"
-													}})
-						.html(this.getMonthName()))
-		append(
+				.html(this.getMonthName());
+				
+		var scrollMonth = 
 			$("<span></span>",	{	"css":	{	"display":				"flex"
 											,	"flex-direction":		"column"
 											,	"margin-right": 		"-25em"
@@ -110,9 +113,13 @@ class Calendar
 							.click(function()
 							{
 								alert("Move down");
-							})));
+							}));
 	
-	var jqReturn = divNavRow;
+	var jqReturn = 
+		divNavRow
+			.append(divPrevMonth)
+			.append(spanCurrentMonth)
+			.append(scrollMonth);
 						
 		return(jqReturn);
 	}
