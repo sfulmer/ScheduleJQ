@@ -175,43 +175,64 @@ class Calendar
 				.append(scrollYear)
 				.append(divNextMonth));
 			
-	var divDays = 
-		$("<div></div>",	{	css:	{	display:			"flex"
-										,	"flex-direction":	"row"
+	var divCalendar = 
+		$("<div></div>",	{	css:	{	display:					"grid"
+										,	"grid-template-columns":	"2.25em 2.275em 2.375em 2.5em 2.5em 2.5em 2.5em"
+										,	"grid-template-rows":		"1em"
+										,	"text-align": 				"center"
 										}});
 										
 	var arrDays = Array("Su", "M", "Tu", "W", "Th", "F", "Sa");
 										
 	for(var sDay in arrDays)
-		divDays.append(
+		divCalendar.append(
 			$("<span></span>",	{	css:	{	"font-weight":		"bold"
 											,	"margin-left":		".5em"
 											,	"margin-right":		"1.5em"
 											,	"text-decoration":	"underline"
 											}})
 				.html(arrDays[sDay]));
-				
-	divRoot.append(divDays);
 	
-	var divCalendar = 
-		$("<div></div>",	{	css:	{	display: 					"grid"
-										,	"grid-template-columns": 	"2.25em 2.275em 2.375em 2.5em 2.5em 2.5em 2.5em"
-										,	"grid-template-rows": 		"5"
-										,	"text-align": 				"center"
-										}});
-										
 	for(var iLength = this.getFirstWeekdayOfMonthAndYear(this.getMonth(), this.getYear()), iLoop = 0; iLoop < iLength; iLoop++)
 		divCalendar
 			.append(
 				$("<span></span>")
 					.html("&nbsp;"));
 					
-	for(var iLength = this.getMaxDaysInMonth(), iLoop = 1; iLoop < iLength; iLoop++)
+	for(var iLength = this.getMaxDaysInMonth(), iLoop = 1; iLoop <= iLength; iLoop++)
 		divCalendar
 			.append(
 				$("<span></span>")
 					.html(iLoop));
+	
+	divRoot.append(divCalendar);
+	
+	var divFooter = 
+		$("<div></div>",	{	css:	{	display: 			"flex"
+										,	"flex-direction": 	"row"
+										,	"margin": 			"3.5em"
+										,	"margin-top": 		"1em"
+										}});
+										
+	divFooter
+		.append(
+			$("<input />",	{	css:	{	"margin-right": "5em"	}
+							,	type:	"button"
+							,	value:	"Add"
+							}))
+		.append(
+			$("<input />",	{	css:	{	"margin-right":		"5em"	}
+							,	type:	"button"
+							,	value:	"Import"
+							}))
+	.append(
+		$("<input />",	{	css:	{	"margin-right":			"5em"	}
+						,	type:	"button"
+						,	value:	"Export"
+						}));
 		
+	divRoot.append(divFooter);
+	
 	var jqReturn = divRoot;
 						
 		return(jqReturn);
@@ -229,7 +250,7 @@ class Calendar
 		if(typeof(y) == "undefined")
 			y = this.getYear();
 			
-		return(new Date(y, m + 1, -1).getDate());
+		return(new Date(y, m + 1, 0).getDate());
 	}
 	
 	getMonth()
@@ -268,6 +289,34 @@ class Calendar
 				return("November");
 			case 11:
 				return("December");
+			}
+	}
+	
+	getWeeksPerMonth()
+	{
+		var iWeeks = 4;
+		
+		switch(this.getMaxDaysInMonth())
+			{
+			case 31:
+				if(this.getFirstWeekdayOfMonthAndYear() > 2)
+					iWeeks += 1;
+					
+				break;
+			case 30:
+				if(this.getFirstWeekdayOfMonthAndYear() <= 6)
+					iWeeks += 1;
+					
+				break;
+			default:
+				if(this.isLeapYear())
+					if(this.getFirstWeekdayOfMonthAndYear() >= 6)
+						iWeeks = 6;
+				else if(this.getFirstWeekdayOfMonthAndYear > 0)
+					iWeeks = 5;
+					
+				break;
+				
 			}
 	}
 	
