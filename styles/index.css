@@ -1,28 +1,67 @@
 #container
 {
-	height: 150px;
-	width: 100%;
+	height: 			150px;
+	width: 				100%;
 }
 
-.dayName
+.dayLabel
 {
-	font-weight: bold;
-	text-decoration: underline;
+	cursor:				pointer;
+	font-weight:		bold;
+	margin-left:		.5em;
+	margin-right:		1.5em;
+	text-decoration:	underline;
 }
 
-div table tbody tr td
+dialog#dlgLogin table
 {
-	cursor: pointer;
-	font-weight: bold;
-	text-align: center;
+	background-image: 	linear-gradient(45deg, green);
+	color:				white;
 }
+
+dialog#dlgLogin div
+{
+	display:				grid;
+	grid-template-columns:	3em 3em;
+	grid-template-rows:		1em 1em;
+	text-align: 			left;
+} 
+
+dialog div button span
+{
+	font-weight: 		bold;
+	text-decoration:	underline;
+}
+
+dialog div label span
+{
+	font-weight: 		bold;
+	text-decoration:	underline;
+}
+
+/*#dlgLogin, #dlgLogin label
+{
+	background-color:		green;
+	color:					white;
+	height:					175px;
+	margin:					auto;
+	margin-left:			25%;
+	text-align:				right;
+	width:					33vw;
+}*/
+
+/*#dlgSignup, #dlgSignup label
+{
+	background-color:		yellow;
+	color:					black;
+	height:					175px;
+	margin:					auto;
+	margin-left:			25%;
+	text-align:				right;
+	width:					33vw;
+}*/
 
 #leftPanel
 {
-	width: 150px;
+	width: 				20vw;
 }
-
-th img
-{
-	vertical-align: middle;
-}}

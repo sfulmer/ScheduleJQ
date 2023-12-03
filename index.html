@@ -9,6 +9,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 	<script src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 	<script src="js/Calendar.js"></script>
+	<script src="js/Login.js"></script>
 	<script>
 		$(function() 
 		{
@@ -17,14 +18,57 @@
 		    var objCalendar = new Calendar();
 		    
 		    $("#leftPanel").append(objCalendar.getJQuery());
+		    
+		    //new Login("...", "...", "...").setupLoginLink();
 		});
 	</script>
 	</head>
 	<body>
+		<!--<dialog id="dlgLogin">
+			<form method="dialog">
+				<div style="display: flex;flex-direction: row;">
+					<label accesskey="u" for="txtUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label>
+					<input id="txtUsername" maxlength="255" name="username" type="text" />
+				</div>
+				<div style="display: flex;flex-direction: row;">
+					<label accesskey="p" for="txtPassword"><span style="font-weight: bold; text-decoration: underline;">P</span>assword:</label>
+					<input id="txtPassword" name="password" placeholder="*" type="password" />
+				</div>
+				<div style="display: flex;flex-direction: row;">
+					<button id="btnSignUp">
+						<span style="font-weight: bold; text-decoration: underline;">S</span>ign-Up
+					</button>
+					<button id="btnCancel">
+						<span style="font-weight: bold; text-decoration: underline;">C</span>ancel</button>
+					</button>
+					<button accesskey="l" id="btnLogin">
+						<span style="font-weight: bold; text-decoration: underline;">L</span>ogin</button>
+					</button>
+				</div>
+			</form>
+		</dialog>
+		<dialog id="dlgSignUp">
+			<form method="dialog">
+				<div style="display: flex; flex-direction: row;">
+					<label accesskey="u" for="txtUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label>
+					<input id="txtUsername" maxlength="255" name="username" type="text" />
+				</div>
+				<div style="display: flex; flex-direction: row;">
+					<label accesskey="p" for="txtPassword"><span style="font-weight: bold: text-decoration: underline;">P</span>assword:</label>
+					<input id="txtPassword" name="password" placeholder="*" type="password"
+				</div>
+				<div style="display: flex; flex-direction: row;">
+					<button id="btnCancel">
+						<span style="font-weight: bold; text-decoration: underline;">C</span>ancel</button>
+					</button>
+					<button accesskey="s" id="btnSignup">
+						<span style="font-weight: bold; text-decoration: underline;">S</span>ignup</button>
+					</button>
+				</div>
+			</form>
+		</dialog>-->
 		<div id="container">
-		    <div id="leftPanel">
-				
-			</div>
+		    <div id="leftPanel"></div>
 		    <div id="rightPanel"></div>
 		</div>
 	</body>

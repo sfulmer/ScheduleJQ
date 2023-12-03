@@ -45,7 +45,7 @@ class Calendar
 	
 	getDayOfWeek()
 	{
-		return(new Date(getYear(), getMonth(), getDay()).getDay());
+		return(new Date(this.getYear(), this.getMonth(), this.getDay()).getDay());
 	}
 	
 	getFirstWeekdayOfMonthAndYear(m, y)
@@ -161,7 +161,7 @@ class Calendar
 			.html("&gt;&gt;")
 			.click(function()
 			{
-				alert("Move forward!");
+				this.setMonthAndYear(getMonth() + 1, getYear());
 			});
 			
 	divRoot
@@ -186,11 +186,7 @@ class Calendar
 										
 	for(var sDay in arrDays)
 		divCalendar.append(
-			$("<span></span>",	{	css:	{	"font-weight":		"bold"
-											,	"margin-left":		".5em"
-											,	"margin-right":		"1.5em"
-											,	"text-decoration":	"underline"
-											}})
+			$("<span></span>",	{	"class":	"dayLabel"	})
 				.html(arrDays[sDay]));
 	
 	for(var iLength = this.getFirstWeekdayOfMonthAndYear(this.getMonth(), this.getYear()), iLoop = 0; iLoop < iLength; iLoop++)
@@ -210,30 +206,30 @@ class Calendar
 	var divFooter = 
 		$("<div></div>",	{	css:	{	display: 			"flex"
 										,	"flex-direction": 	"row"
-										,	"margin": 			"3.5em"
+										,	"margin": 			"2.5em"
 										,	"margin-top": 		"1em"
 										}});
 										
 	divFooter
 		.append(
-			$("<input />",	{	css:	{	"margin-right": "5em"	}
-							,	type:	"button"
-							,	value:	"Add"
+			$("<input />",	{	css:		{	"margin-right": "1em"	}
+							,	type:		"button"
+							,	value:		"Add"
 							}))
 		.append(
-			$("<input />",	{	css:	{	"margin-right":		"5em"	}
-							,	type:	"button"
-							,	value:	"Import"
+			$("<input />",	{	css:		{	"margin-right":		"1em"	}
+							,	type:		"button"
+							,	value:		"Import"
 							}))
-	.append(
-		$("<input />",	{	css:	{	"margin-right":			"5em"	}
-						,	type:	"button"
-						,	value:	"Export"
-						}));
+		.append(
+			$("<input />",	{	css:		{	"margin-right":			"1em"	}
+							,	type:		"button"
+							,	value:		"Export"
+							}));
+			
+		divRoot.append(divFooter);
 		
-	divRoot.append(divFooter);
-	
-	var jqReturn = divRoot;
+		var jqReturn = divRoot;
 						
 		return(jqReturn);
 	}
