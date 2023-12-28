@@ -15,58 +15,137 @@
 		{
 		   	var horizontalSplitter = $("#container").shieldSplitter();
 		    
-		    var objCalendar = new Calendar();
+		    var objCalendar = new Calendar("divCalendar");
 		    
 		    $("#leftPanel").append(objCalendar.getJQuery());
 		    
-		    //new Login("...", "...", "...").setupLoginLink();
+		    new Login("...", "...", "...").setupLoginLink();
+		    
+		    document.title = "Guest - " + objCalendar.getMonthName() + ", " + objCalendar.getYear();
 		});
 	</script>
 	</head>
 	<body>
-		<!--<dialog id="dlgLogin">
+		<dialog id="dlgLogin" style="background-color: green; color: white;overflow-x: hidden;position: relative;">
+			<div id="divLoginClose" style="cursor: pointer;font-size: .75em;font-weight; bolder;left: 97%;position: absolute;top: .15em;">x</div>
+			<div style="font-size: 2em;font-weight: bolder;">Login</div>
+			<hr style="margin-top: -1em;" />
 			<form method="dialog">
-				<div style="display: flex;flex-direction: row;">
-					<label accesskey="u" for="txtUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label>
-					<input id="txtUsername" maxlength="255" name="username" type="text" />
-				</div>
-				<div style="display: flex;flex-direction: row;">
-					<label accesskey="p" for="txtPassword"><span style="font-weight: bold; text-decoration: underline;">P</span>assword:</label>
-					<input id="txtPassword" name="password" placeholder="*" type="password" />
-				</div>
-				<div style="display: flex;flex-direction: row;">
-					<button id="btnSignUp">
-						<span style="font-weight: bold; text-decoration: underline;">S</span>ign-Up
-					</button>
-					<button id="btnCancel">
-						<span style="font-weight: bold; text-decoration: underline;">C</span>ancel</button>
-					</button>
-					<button accesskey="l" id="btnLogin">
-						<span style="font-weight: bold; text-decoration: underline;">L</span>ogin</button>
-					</button>
+				<table width="100%">
+					<tfoot>
+						<tr>
+							<th colspan="3" style="font-size: .5em;">&nbsp;</th>
+						</tr>
+						<tr>
+							<th><button accesskey="s" id="btnSignUp" /><span style="font-weight: bold; text-decoration: underline;">S</span>ign-Up</th>
+							<th><button accesskey="c" id="btnLoginCancel" /><span style="font-weight: bold; text-decoration: underline;">C</span>ancel</th>
+							<th><button accesskey="l" disabled id="btnLoginLogin" /><span style="font-weight: bold; text-decoration: underline;">L</span>ogin</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr>
+							<td colspan="3">
+								<table width="100%">
+									<tr>
+										<td><label accesskey="u" for="inputLoginUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label></td>
+										<td><input id="inputLoginUsername" type="text" /></td>
+									</tr>
+									<tr>
+										<td><label accesskey="p" for="inputLoginPassword"><span style="font-weight: bold; text-decoration: underline;">P</span>assword:</label></td>
+										<td><input id="inputLoginPassword" type="password" /></td>
+									</tr>
+									<tr>
+										<td style="text-align: left;"><span style="cursor: pointer;font-weight: bold;text-decoration: underline;">Forgot Password?</span></td>
+										<td style="text-align: right;"><input id="chkLoginShowPassword" type="checkbox" /> Show</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</dialog>
+		<dialog id="dlgSignup" style="background-color: darkorange; color: navy;overflow-x: hidden;position: relative;">
+			<div id="divLoginClose" style="cursor: pointer;font-size: .75em;font-weight; bolder;left: 97%;position: absolute;top: .15em;">x</div>
+			<div style="font-size: 2em;font-weight: bolder;">Sign-up</div>
+			<hr />
+			<form method="dialog">
+				<div id="tabs">
+					<ul>
+						<li><a accesskey="g" href="#General" style="text-decoration: normal;"><span style="font-weight: bold; text-decoration: underline;">G</span>eneral</a></li>
+						<li><a accesskey="s" href="#Settings" style="text-decoration: normal;"><span style="font-weight: bold; text-decoration: underline;">S</span>ettings</a></li>
+					</ul>
+					<div id="General">
+						<table width="100%">
+							<tfoot>
+								<tr>
+									<th colspan="2" style="font-size: .5em;">&nbsp;</th>
+								</tr>
+								<tr>
+									<th><button accesskey="c" id="btnSignupCancel" /><span style="font-weight: bold; text-decoration: underline;">C</span>ancel</th>
+									<th><button accesskey="s" disabled id="btnSignupSignup" /><span style="font-weight: bold; text-decoration: underline;">S</span>ign-up</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr>
+									<td><label accesskey="u" for="inputSignupUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label></td>
+									<td><input autocomplete="username" id="inputSignupUsername" type="text" /></td>
+								</tr>
+								<tr>
+									<td><label accesskey="p" for="inputSignupPassword"><span style="font-weight: bold; text-decoration: underline;">P</span>assword:</label></td>
+									<td><input autocomplete="new-password" id="inputSignupPassword" title="Contains at least 16 characters, at least 1 capital, at least 1 lower case, at least 1 digit, at least 1 special caracter[@_=- !#$%&] and nothing in the English common dictionary" type="password" /></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<table width="100%">
+											<tr>
+												<td>&nbsp;</td>
+												<td style="margin-right: -1em;text-align: right;"><span id="spanPasswordStrength">Weak</span></td>
+												<td style="text-align: right;"><input id="chkSignupShowPassword" type="checkbox" /> Show</td style="text-align: right;">
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td><label accesskey="r" for="inputSignupPassword2"><span style="font-weight: bold; text-decoration: underline;">R</span>etype:</label></td>
+									<td><input id="inputSignupPassword2" title="Contains at least 16 characters, at least 1 capital, at least 1 lower case, at least 1 digit, at least 1 special caracter[@_=- !#$%&] and nothing in the English common dictionary" type="password" /></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<table width="100%">
+											<tr>
+												<td>&nbsp;</td>
+												<td style="margin-right: -1em;text-align: right;visibility: hidden;"><span id="spanPasswordsMatch">Passwords Match</span></td>
+												<td style="text-align: right;"><input id="chkSignupShowPassword2" type="checkbox" /> Show</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td><label accesskey="f" for="inputSignupFirstName"><span style="font-weight: bold; text-decoration: underline;">F</span>irst Name:</label></td>
+									<td><input autocomplete="given-name" id="inputSignupFirstName" type="text" /></td>
+								</tr>>
+								<tr>
+									<td><label accesskey="l" for="inputSignupLastName"><span style="font-weight: bold; text-decoration: underline;">L</span>ast Name:</label></td>
+									<td><input autocomplete="family-name" id="inputSignupLastName" type="text" /></td>
+								</tr>
+								<tr>
+									<td><label accesskey="b" for="inputSignupBirthdate"><span style="font-weight: bold; text-decoration: underline;">B</span>irth date:</label></td>
+									<td><input autocomplete="bday" id="inputSignupBirthdate" type="date" /></td>
+								</tr>
+								<tr>
+									<td><label accesskey="e" for="inputSignupEmail"><span style="font-weight: bold; text-decoration: underline;">E</span>-Mail:</label></td>
+									<td><input autocomplete="email" id="inputSignupEmail" type="email" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="Settings">
+						Hello
+					</div>
 				</div>
 			</form>
 		</dialog>
-		<dialog id="dlgSignUp">
-			<form method="dialog">
-				<div style="display: flex; flex-direction: row;">
-					<label accesskey="u" for="txtUsername"><span style="font-weight: bold; text-decoration: underline;">U</span>sername:</label>
-					<input id="txtUsername" maxlength="255" name="username" type="text" />
-				</div>
-				<div style="display: flex; flex-direction: row;">
-					<label accesskey="p" for="txtPassword"><span style="font-weight: bold: text-decoration: underline;">P</span>assword:</label>
-					<input id="txtPassword" name="password" placeholder="*" type="password"
-				</div>
-				<div style="display: flex; flex-direction: row;">
-					<button id="btnCancel">
-						<span style="font-weight: bold; text-decoration: underline;">C</span>ancel</button>
-					</button>
-					<button accesskey="s" id="btnSignup">
-						<span style="font-weight: bold; text-decoration: underline;">S</span>ignup</button>
-					</button>
-				</div>
-			</form>
-		</dialog>-->
 		<div id="container">
 		    <div id="leftPanel"></div>
 		    <div id="rightPanel"></div>

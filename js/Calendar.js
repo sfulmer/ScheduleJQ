@@ -2,15 +2,15 @@ class Calendar
 {
 	constructor(id, y, m, d)
 	{
-		this.d = undefined;
-		this.m = undefined;
-		this.y = undefined;
-		this.msId = undefined;
+		this.d = d;
+		this.m = m;
+		this.y = y;
+		this.msId = id;
 	}
 	
 	attach(sParent, objJQ)
 	{
-		$("#" + sParent).erase();
+		$("#" + this.getId()).remove();
 		$("#" + sParent).append(objJQ);
 	}
 	
@@ -62,7 +62,7 @@ class Calendar
 	
 	getJQuery()
 	{
-		var divRoot = $("<div></div>");
+		var divRoot = $("<div></div>",	{	id:	this.getId()	});
 		
 		var divNavRow = 
 			$("<div></div>",	{	"css":	{	"display":			"flex"
@@ -77,17 +77,21 @@ class Calendar
 												,	"vertical-align":	"middle"
 												}})
 					.html("&lt;&lt;")
-					.click(function()
-					{
-						alert("Move back!");
-					});
+					.click(() =>
+			{
+				this.setMonthAndYear(this.getMonth() - 1, this.getYear());
+			});
 					
 		var spanCurrentMonth =
-			$("<span></span>",	{	"css":	{	"cursor":			"pointer"
-											,	"font-weight":		"bold"
+			$("<span></span>",	{	"css":	{	"font-weight":		"bold"
 											,	"text-decoration":	"underline"
 											}})
-				.html(this.getMonthName());
+				.html(this.getMonthName())
+				.click(() =>
+				{
+					spanCurrentMonth.hide();
+					spanMonthDropDown.css("display", "inline");
+				});
 				
 		var scrollMonth = 
 			$("<span></span>",	{	"css":	{	"display":				"flex"
@@ -101,9 +105,9 @@ class Calendar
 													,	"margin-bottom":	"-5px"
 													,	"scale":			"50%"}})
 						.html("▲")
-						.click(function()
+						.click(() =>
 						{
-							alert("Move Up");
+							this.setMonthAndYear(this.getMonth() - 1, this.getYear());
 						}))
 					.append(
 						$("<span></span>",	{	"css":	{	"cursor":		"pointer"
@@ -112,15 +116,13 @@ class Calendar
 														,	"scale":		"50%"
 														}})
 							.html("▼")
-							.click(function()
+							.click(() =>
 							{
-								alert("Move down");
+								this.setMonthAndYear(this.getMonth() + 1, this.getYear());
 							}));
 							
 	var spanCurrentYear =
-		$("<span></span>",	{	css:	{	cursor:			"pointer"
-										,	"font-weight":	"bold"
-										}})
+		$("<span></span>",	{	css:	{	"font-weight":	"bold"	}})
 			.html(this.getYear());
 			
 		var scrollYear = 
@@ -135,9 +137,9 @@ class Calendar
 													,	"margin-bottom":	"-5px"
 													,	"scale":			"50%"}})
 						.html("▲")
-						.click(function()
+						.click(() =>
 						{
-							alert("Move Up");
+							this.setYear(this.getYear() - 1);
 						}))
 					.append(
 						$("<span></span>",	{	"css":	{	"cursor":		"pointer"
@@ -146,9 +148,9 @@ class Calendar
 														,	"scale":		"50%"
 														}})
 							.html("▼")
-							.click(function()
+							.click(() =>
 							{
-								alert("Move down");
+								this.setYear(this.getYear() + 1);
 							}));
 							
 	var divNextMonth = 
@@ -159,9 +161,9 @@ class Calendar
 										,	"vertical-align":	"middle"
 										}})
 			.html("&gt;&gt;")
-			.click(function()
+			.click(() =>
 			{
-				this.setMonthAndYear(getMonth() + 1, getYear());
+				this.setMonthAndYear(this.getMonth() + 1, this.getYear());
 			});
 			
 	divRoot
@@ -196,10 +198,16 @@ class Calendar
 					.html("&nbsp;"));
 					
 	for(var iLength = this.getMaxDaysInMonth(), iLoop = 1; iLoop <= iLength; iLoop++)
-		divCalendar
-			.append(
-				$("<span></span>")
-					.html(iLoop));
+		if((this.getMonth() == new Date().getMonth()) && (iLoop == new Date().getDate()))
+			divCalendar
+				.append(
+					$("<span></span>",	{	css:	{	"font-weight": 		"bolder"	}})
+						.html(iLoop));
+		else
+			divCalendar
+				.append(
+					$("<span></span>")
+						.html(iLoop));
 	
 	divRoot.append(divCalendar);
 	
@@ -349,55 +357,55 @@ class Calendar
 			this.setMonthAndYear(m + 1, y);
 			}
 			
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 	
 	setDay(d)
 	{
 		this.d = d;
 		
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 	
 	setId(id)
 	{
 		this.msId = id;
 		
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 	
 	setMonth(m)
 	{
 		this.m = m;
 		
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 	
 	setMonthAndYear(m, y)
 	{
 		if((m >= 0) && (m <= 11))
 			{
-			this.setMonth(m);
-			this.setYear(y);
+			this.m = m;
+			this.y = y;
 			}
 		else if(m < 0)
 			{
-			this.setMonth(11);
-			this.setYear(y - 1);
+			this.m = 11;
+			this.y = y - 1;
 			}
 		else if(m > 11)
 			{
-			this.setMonth(0);
-			this.setYear(y + 1);
+			this.m = 0;
+			this.y = y + 1;
 			}
 			
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 	
 	setYear(y)
 	{
 		this.y = y;
 		
-		attach("leftPanel", this.getJQuery());
+		this.attach("leftPanel", this.getJQuery());
 	}
 }

@@ -1,3 +1,21 @@
+@media (prefers-color-scheme: dark)
+{
+	body
+	{
+		background-color: black;
+		color: white;
+	}
+}
+
+@media (prefers-color-scheme: light)
+{
+	body
+	{
+		background-color: white;
+		color: black;
+	}
+}
+
 #container
 {
 	height: 			150px;
@@ -13,10 +31,10 @@
 	text-decoration:	underline;
 }
 
-dialog#dlgLogin table
+dialog#dlgLogin
 {
-	background-image: 	linear-gradient(45deg, green);
-	color:				white;
+	background-color:	green;
+	color:				 white;
 }
 
 dialog#dlgLogin div
