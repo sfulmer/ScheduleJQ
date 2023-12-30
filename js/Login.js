@@ -78,7 +78,7 @@ function openLogin()
 										:	"password"));
 			});
 		
-		$("#divLoginBorder")
+		$("#divLoginClose")
 			.click(() =>
 			{
 				closeLogin();
@@ -102,6 +102,8 @@ function openLogin()
 
 function closeSignup()
 {
+	alert("Hi");
+	
 	if($("#dlgSignup")[0].open)
 		{
 		$("#dlgSignup > input, button, div").unbind();
@@ -117,6 +119,14 @@ function openSignup()
 		$("#dlgSignup")[0].showModal();
 		
 		$("#tabs").tabs();
+		
+		$("#chkNight").prop("checked", window.matchMedia("(prefers-color-scheme: dark)").matches);
+			
+		$("#btnSignupCancel")
+			.click(() =>
+			{
+				closeSignup();
+			});
 		
 		$("#chkSignupShowPassword")
 			.click(() =>
@@ -196,13 +206,7 @@ function openSignup()
 				}, 150);
 			});
 			
-		$("#divSignupBorder")
-			.click(() =>
-			{
-				closeSignup();
-			});
-			
-		$("#btnSignupCancel")
+		$("#divSignupClose")
 			.click(() =>
 			{
 				closeSignup();
